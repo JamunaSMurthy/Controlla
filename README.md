@@ -67,13 +67,47 @@ emotion label ────► emotion encoder  │
                                   OT/alignment hooks
 ```
 
-Available figures live under [`controlla/images`](controlla/images):
+---
 
-| Figure | File |
-|---|---|
-| Framework overview | [`Figure1.png`](controlla/images/Figure1.png) |
-| Module details | [`Figure2.png`](controlla/images/Figure2.png) |
-| Additional visualizations | [`Figure3.png`](controlla/images/Figure3.png), [`Figure4.png`](controlla/images/Figure4.png), [`Figure5.png`](controlla/images/Figure5.png), [`Figure6.png`](controlla/images/Figure6.png) |
+## 🖼️ Figure Guide
+
+All visual assets live in [`controlla/images`](controlla/images). Click any figure to open the full-resolution image.
+
+### Figure 1 — Structured Latent Geometry
+
+[![Figure 1: Structured latent geometry](controlla/images/Figure1.png)](controlla/images/Figure1.png)
+
+[`Figure1.png`](controlla/images/Figure1.png) shows Controlla's main control idea: image, reference image, text, and audio are mapped into factorized identity and attribute spaces. The attribute factor follows graph-consistent semantic movement, while the reference-grounded identity factor is kept stable.
+
+### Figure 2 — Controlla Framework
+
+[![Figure 2: Controlla framework](controlla/images/Figure2.png)](controlla/images/Figure2.png)
+
+[`Figure2.png`](controlla/images/Figure2.png) explains the full framework. Multimodal inputs are encoded into a shared representation, split into attribute and identity components, and aligned with emotion and identity graph priors through graph-constrained optimal transport. This is the core path that supports affective edits without losing the reference identity.
+
+### Figure 3 — Graph Strength Ablation
+
+[![Figure 3: Effect of graph strength](controlla/images/Figure3.png)](controlla/images/Figure3.png)
+
+[`Figure3.png`](controlla/images/Figure3.png) summarizes how the graph-strength weight changes behavior. Stronger graph regularization improves controllability and human preference while lowering geodesic inconsistency; CLIP-style alignment is treated as an auxiliary diagnostic rather than the main success signal.
+
+### Figure 4 — Graph-Consistent vs. Linear Traversal
+
+[![Figure 4: Graph-consistent versus linear traversal](controlla/images/Figure4.png)](controlla/images/Figure4.png)
+
+[`Figure4.png`](controlla/images/Figure4.png) compares graph-guided semantic traversal with ordinary linear interpolation. The graph-consistent path gives smoother affective transitions and better identity stability because movement follows the learned emotion geometry instead of cutting directly through latent space.
+
+### Figure 5 — Cross-Dataset Qualitative Comparison
+
+[![Figure 5: Cross-dataset qualitative comparison](controlla/images/Figure5.png)](controlla/images/Figure5.png)
+
+[`Figure5.png`](controlla/images/Figure5.png) compares generated examples across datasets and methods under matched inputs. It highlights whether each method preserves identity, follows the requested expression, and stays semantically aligned across different source distributions.
+
+### Figure 6 — Graph-Guided Latent Control
+
+[![Figure 6: Graph-guided latent control](controlla/images/Figure6.png)](controlla/images/Figure6.png)
+
+[`Figure6.png`](controlla/images/Figure6.png) visualizes graph-guided latent control over emotion transitions. The structured path produces smoother, more interpretable changes while maintaining identity more consistently than linear interpolation.
 
 ---
 
