@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "controlla"
+version = "0.1.0"
+description = "Research prototype for controllable multimodal image generation and editing"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "torch>=2.2.0",
+  "torchvision>=0.17.0",
+  "diffusers>=0.30.0",
+  "transformers>=4.41.0",
+  "accelerate>=0.30.0",
+  "Pillow>=10.0.0",
+  "PyYAML>=6.0.1",
+  "numpy>=1.26.0",
+  "pandas>=2.2.0",
+  "scikit-learn>=1.5.0",
+  "matplotlib>=3.8.0",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["data", "data.*", "models", "models.*", "losses", "losses.*", "trainers", "trainers.*", "pipelines", "pipelines.*", "utils", "utils.*", "experiments", "experiments.*", "evaluation", "evaluation.*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

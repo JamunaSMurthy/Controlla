@@ -1,0 +1,13 @@
+base_config: configs/base.yaml
+experiment_name: controlla_real_sd_local
+output_dir: outputs/real_sd
+model:
+  diffusion_backbone: diffusers
+  diffusion_local_only: true
+  diffusion_model_path: null
+train:
+  batch_size: 1
+  num_epochs: 1
+infer:
+  num_inference_steps: 10
+  output_path: outputs/real_sd/infer.png

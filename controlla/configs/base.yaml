@@ -1,0 +1,86 @@
+experiment_name: controlla_base
+seed: 1234
+device: cpu
+mixed_precision: false
+output_dir: outputs/base
+
+model:
+  hidden_dim: 256
+  text_dim: 256
+  image_dim: 256
+  audio_dim: 128
+  emotion_dim: 256
+  fused_dim: 256
+  z_dim: 128
+  max_text_tokens: 32
+  num_emotions: 8
+  graph_heads: 4
+  graph_layers: 2
+  graph_dropout: 0.1
+  adapter_tokens: 4
+  cross_attention_dim: 768
+  diffusion_backbone: diffusers
+  diffusion_model_id: runwayml/stable-diffusion-v1-5
+  diffusion_model_path: null
+  diffusion_local_only: true
+  ot_solver: fgw
+  ot_regularization: 0.05
+  ot_iterations: 20
+  ot_sinkhorn_iterations: 50
+  image_size: 64
+  use_precomputed_audio_only: true
+
+ablations:
+  no_graph: false
+  no_audio: false
+  no_identity_branch: false
+  no_ot: false
+  text_only: false
+  image_text: false
+  text_audio: false
+  full_multimodal: true
+
+loss_weights:
+  diffusion: 1.0
+  identity: 0.5
+  emotion: 0.5
+  graph: 0.25
+  contrastive: 0.1
+
+data:
+  manifest_path: null
+  csv_path: null
+  split_dir: ../controlla_dataset_builder/outputs/train_optimized_splits
+  split_name: train
+  image_root: null
+  reference_column: reference_image_path
+  prompt_column: text
+  image_column: image_path
+  emotion_column: unified_emotion
+  audio_column: audio_feature_path
+  emotion_taxonomy:
+    - neutral
+    - happy
+    - sad
+    - angry
+    - fearful
+    - surprised
+    - disgusted
+    - contemptuous
+  image_size: 64
+  dummy_num_samples: 16
+
+train:
+  batch_size: 4
+  learning_rate: 0.0001
+  num_epochs: 1
+  num_workers: 0
+  log_every: 1
+  save_every: 1
+  max_grad_norm: 1.0
+
+infer:
+  guidance_scale: 1.0
+  num_inference_steps: 10
+  output_path: outputs/infer.png
+  checkpoint_path: null

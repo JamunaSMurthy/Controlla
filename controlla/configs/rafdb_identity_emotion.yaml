@@ -1,0 +1,18 @@
+base_config: configs/base.yaml
+experiment_name: controlla_rafdb_identity_emotion
+output_dir: outputs/rafdb_identity_emotion
+model:
+  diffusion_backbone: mock
+data:
+  manifest_path: data/rafdb_identity_emotion_subset.csv
+  csv_path: data/rafdb_identity_emotion_subset.csv
+  image_root: ../Datasets/RAF-DB/DATASET/train
+  prompt_column: prompt
+  reference_column: reference_image_path
+  emotion_column: emotion_label
+  audio_column: audio_path
+train:
+  batch_size: 2
+  num_epochs: 1
+  learning_rate: 0.0002
+  save_every: 0

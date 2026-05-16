@@ -1,0 +1,8 @@
+base_config: configs/base.yaml
+experiment_name: controlla_infer
+output_dir: outputs/infer
+model:
+  diffusion_backbone: mock
+infer:
+  num_inference_steps: 8
+  output_path: outputs/infer/sample.png

@@ -1,0 +1,8 @@
+prompt,image_path,reference_image_path,emotion_label,audio_path
+"a surprised portrait with preserved identity","1/train_00006_aligned.jpg","1/train_00006_aligned.jpg",1,
+"a fearful portrait with preserved identity","2/train_00027_aligned.jpg","2/train_00027_aligned.jpg",2,
+"a disgusted portrait with preserved identity","3/train_00031_aligned.jpg","3/train_00031_aligned.jpg",3,
+"a happy portrait with preserved identity","4/train_00003_aligned.jpg","4/train_00003_aligned.jpg",4,
+"a sad portrait with preserved identity","5/train_00001_aligned.jpg","5/train_00001_aligned.jpg",5,
+"an angry portrait with preserved identity","6/train_00023_aligned.jpg","6/train_00023_aligned.jpg",6,
+"a neutral portrait with preserved identity","7/train_09748_aligned.jpg","7/train_09748_aligned.jpg",7,

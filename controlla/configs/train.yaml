@@ -1,0 +1,11 @@
+base_config: configs/base.yaml
+experiment_name: controlla_train
+output_dir: outputs/train
+model:
+  diffusion_backbone: mock
+train:
+  batch_size: 2
+  learning_rate: 0.0002
+  num_epochs: 1
+data:
+  dummy_num_samples: 8

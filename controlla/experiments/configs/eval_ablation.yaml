@@ -1,0 +1,19 @@
+manifest_path: null
+split_dir: ../controlla_dataset_builder/outputs/strict_splits
+split_name: test
+variants:
+  - name: full_controlla
+    config: configs/ablation_full.yaml
+  - name: without_identity_gw
+    disable_identity_gw: true
+  - name: without_emotion_fgw
+    disable_emotion_fgw: true
+  - name: without_disentanglement_loss
+    disable_disentanglement_loss: true
+  - name: fixed_emotion_prototypes
+    fixed_emotion_prototypes: true
+  - name: alternative_diffusion_distance
+    distance_mode: diffusion_distance
+seeds: [0, 1, 2]
+cache_root: experiments/outputs/cache
+results_root: experiments/outputs/results/ablations

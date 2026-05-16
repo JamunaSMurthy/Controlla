@@ -1,0 +1,16 @@
+manifest_path: null
+split_dir: ../controlla_dataset_builder/outputs/strict_splits
+split_name: test
+methods:
+  - controlla_full
+  - styleclip
+  - diffusionclip
+  - instructpix2pix
+  - controlnet
+  - emogen
+  - emoedit
+  - emoportraits
+  - dreambooth
+seeds: [0, 1, 2]
+cache_root: experiments/outputs/cache
+results_root: experiments/outputs/results/main

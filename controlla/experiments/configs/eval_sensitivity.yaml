@@ -1,0 +1,13 @@
+manifest_path: null
+split_dir: ../controlla_dataset_builder/outputs/strict_splits
+split_name: test
+seeds: [0, 1, 2]
+cache_root: experiments/outputs/cache
+results_root: experiments/outputs/results/sensitivity
+regularization_values: [0.3, 0.5, 1.0, 1.5, 2.0]
+graph_perturbations: [0.0, 0.05, 0.10, 0.20]
+graph_topologies:
+  - fully_connected
+  - knn_5
+  - knn_10
+  - sparse

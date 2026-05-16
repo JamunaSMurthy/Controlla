@@ -1,0 +1,103 @@
+# Runnable paper-level experiment definitions for the Controlla result tables.
+#
+# Prediction manifests are looked up under:
+#   ${prediction_root}/{section}/{method_or_variant}/{split}/seed_{seed}/predictions.csv
+# and then:
+#   ${prediction_root}/{method_or_variant}/{split}/seed_{seed}/predictions.csv
+#
+# For Controlla rows, the runner can fall back to the dataset manifest so the
+# code is immediately runnable. External baselines are reported as missing until
+# their prediction manifests are registered.
+
+dataset_root: null
+dataset_root_candidates:
+  - ../AffectHuman-43K-Grouped
+  - ../AffectHuman-43K
+manifest_path: null
+splits: [val, test]
+seeds: [0, 1, 2]
+max_samples_per_split: null
+
+prediction_root: experiments/outputs/predictions
+output_root: experiments/outputs/paper
+
+controlla_fallback_methods:
+  - controlla
+  - controlla_full
+  - full_model
+  - image_only
+  - image_audio
+  - image_text
+  - image_text_audio
+  - without_emotion_fgw
+  - without_identity_gw
+  - without_disentanglement_loss
+  - without_graph_euclidean
+  - contrastive_only
+  - metric_no_ot
+  - linear_euclidean
+  - spline_interpolation
+  - controlla_geodesic
+  - k_5
+  - k_10
+  - k_20
+
+main_methods:
+  - styleclip
+  - controlnet
+  - icedit
+  - flux_kontext
+  - dreambooth_controlnetpp
+  - controlla
+
+cross_dataset_methods:
+  - controlnetpp
+  - icedit
+  - flux
+  - dreambooth_controlnetpp
+  - controlla
+
+architecture_methods:
+  - sdxl
+  - sdxl_controlnetpp
+  - controlla
+
+geometry_methods:
+  - dreambooth
+  - icedit
+  - flux
+  - controlla
+
+retrieval_methods:
+  - clip
+  - imagebind
+  - controlla
+
+component_ablations:
+  - contrastive_only
+  - metric_no_ot
+  - without_emotion_fgw
+  - without_identity_gw
+  - without_disentanglement_loss
+  - without_graph_euclidean
+  - controlla
+
+modality_ablations:
+  - image_only
+  - image_audio
+  - image_text
+  - image_text_audio
+
+traversal_methods:
+  - linear_euclidean
+  - spline_interpolation
+  - controlla_geodesic
+
+graph_sensitivity:
+  - k_5
+  - k_10
+  - k_20
+
+cross_dataset_manifests:
+  affectnet: experiments/outputs/datasets/affectnet.csv
+  celebhq_a: experiments/outputs/datasets/celebahq.csv

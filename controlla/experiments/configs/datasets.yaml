@@ -1,0 +1,31 @@
+raw_root: ../Datasets
+processed_root: experiments/outputs/datasets
+manifest_output: experiments/outputs/manifests/unified_manifest.csv
+seed: 0
+taxonomy:
+  emotions:
+    - neutral
+    - happy
+    - sad
+    - angry
+    - fearful
+    - surprised
+    - disgusted
+    - contemptuous
+datasets:
+  affectnet:
+    raw_csv: AffectNet/labels.csv
+    image_root: AffectNet
+  rafd:
+    raw_root: RAF-DB
+    train_csv: RAF-DB/train_labels.csv
+    test_csv: RAF-DB/test_labels.csv
+    image_root: RAF-DB/DATASET
+  celebahq:
+    raw_root: CELEB_HQ
+  cremad:
+    raw_root: CREMA-D
+  iemocap:
+    raw_root: IEMOCAP
+  emobank:
+    raw_csv: EmoBank/emobank.csv
