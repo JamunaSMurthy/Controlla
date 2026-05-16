@@ -1,21 +1,63 @@
-MIT License
+AffectHuman-43K Research-Only License
 
-Copyright (c) 2026 Jamuna S Murthy
+Copyright (c) 2026 Jamuna S. Murthy
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+AffectHuman-43K is released for non-commercial academic research, benchmarking, and evaluation purposes only.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+By accessing, downloading, or using this dataset, you agree to the following terms.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+1. Permitted Uses
+
+You may use AffectHuman-43K for:
+
+- academic research;
+- non-commercial benchmarking;
+- non-commercial model evaluation;
+- controlled affective generation research;
+- multimodal emotion alignment research;
+- identity-preservation evaluation in research settings.
+
+2. Prohibited Uses
+
+You may not use AffectHuman-43K for:
+
+- commercial products, services, or deployments;
+- biometric identification or face recognition deployment;
+- surveillance, tracking, profiling, or identity matching;
+- emotion inference or decision-making about real individuals in high-stakes settings;
+- generating deceptive, defamatory, harmful, or non-consensual synthetic media;
+- impersonation or identity misuse;
+- harassment, abuse, or targeted manipulation;
+- training or deploying systems intended for deepfake misuse;
+- attempting to identify, re-identify, contact, or locate any individual represented in the dataset;
+- redistributing, sublicensing, selling, or publicly mirroring the raw dataset files.
+
+3. Redistribution
+
+Redistribution of the raw dataset files is not permitted.
+
+You may share derived research results, aggregate statistics, trained model evaluations, and academic publications, provided that they do not expose raw dataset files, private identity information, or data that enables re-identification.
+
+4. Attribution
+
+Any publication, report, model card, dataset card, or software using AffectHuman-43K must cite the dataset and associated paper:
+
+AffectHuman-43K: An Emotion-Aligned Multimodal Benchmark for Controllable Human Affect Generation.
+
+5. Upstream Data Compliance
+
+Users are responsible for complying with the licenses, terms, and usage restrictions of any upstream datasets, models, or source materials used in conjunction with AffectHuman-43K.
+
+This license does not grant rights beyond those permitted by applicable upstream data licenses.
+
+6. No Warranty
+
+The dataset is provided “as is,” without warranty of any kind. The authors make no guarantees regarding accuracy, completeness, fitness for a particular purpose, or legal suitability for any specific use.
+
+7. Access Control
+
+Access to AffectHuman-43K may be gated. Access may be denied, revoked, or restricted at any time if the dataset maintainers determine that the user has violated these terms or presents a misuse risk.
+
+8. Contact
+
+For questions about access, usage, citation, or licensing, contact the dataset maintainers through the official Hugging Face dataset page.
