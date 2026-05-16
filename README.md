@@ -171,7 +171,7 @@ An arXiv link will be added here when available:
 
 ## ⚖️ License And Responsible Use
 
-The AffectHuman-43K dataset is released under **CC BY 4.0**. See the dataset page and local dataset license for details.
+The AffectHuman-43K dataset and dataset-builder release are governed by the repository [`LICENSE`](LICENSE): **research-only, non-commercial academic use, benchmarking, and evaluation**. Redistribution of raw dataset files is not permitted. Users must also comply with the licenses and terms of all upstream datasets and models used with AffectHuman-43K.
 
 This project is intended for research on affective controllable generation. Do not use it for impersonation, identity targeting, surveillance, harassment, or non-consensual synthetic media generation.
 

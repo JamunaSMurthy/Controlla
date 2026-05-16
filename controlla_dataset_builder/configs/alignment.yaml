@@ -1,0 +1,19 @@
+project_root: .
+
+weights:
+  emotion: 0.40
+  identity: 0.20
+  clip: 0.18
+  imagebind: 0.12
+  text_audio: 0.10
+
+thresholds:
+  minimum_final_score: 0.55
+  minimum_emotion_score: 0.50
+  minimum_identity_score: 0.40
+
+matching:
+  exact_emotion_only: false
+  allow_related_emotions: true
+  allow_pseudo_identity: true
+  normalize_scores: true

@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "controlla-dataset-builder"
+version = "0.1.0"
+description = "Reproducible pseudo-aligned multimodal dataset builder for Controlla"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "PyYAML>=6.0",
+  "pydantic>=2.8",
+  "numpy>=1.26",
+  "pandas>=2.2",
+  "scikit-learn>=1.5",
+  "Pillow>=10.0",
+  "pytest>=8.0",
+]
+
+[project.optional-dependencies]
+real-backends = [
+  "torch>=2.2",
+  "transformers>=4.41",
+  "insightface>=0.7.3",
+  "onnxruntime>=1.18",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dataset_builder*", "dataset_leakage_checker*", "split_builder*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

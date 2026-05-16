@@ -1,0 +1,53 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Logs and generated outputs
+*.log
+outputs/
+controlla/outputs/
+controlla/experiments/outputs/
+controlla_dataset_builder/outputs/
+controlla_dataset_builder/validation_report.json
+
+# Local datasets and heavyweight benchmark assets
+Datasets/
+AffectHuman-43K/images/
+AffectHuman-43K/reference_images/
+AffectHuman-43K/audio/
+AffectHuman-43K/features/
+Controlla_Benchmarks/
+
+# Local papers and export artifacts
+*.pdf
+*.zip
+*.tar
+*.tar.gz
+
+# Model weights and arrays
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.onnx
+*.npy
+*.npz
+
+# Editor files
+.idea/
+.vscode/

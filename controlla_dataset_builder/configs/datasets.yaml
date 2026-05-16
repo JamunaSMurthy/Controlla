@@ -1,0 +1,45 @@
+project_root: .
+raw_datasets_root: ../Datasets
+normalized_root: outputs/normalized
+feature_cache_root: outputs/features
+aligned_output_root: outputs/aligned
+reports_root: outputs/reports
+
+datasets:
+  celebahq:
+    enabled: true
+    raw_root: CELEB_HQ
+  ffhq:
+    enabled: false
+    raw_root: FFHQ
+  affectnet:
+    enabled: true
+    raw_root: AffectNet
+    labels_file: AffectNet/labels.csv
+  rafdb:
+    enabled: true
+    raw_root: RAF-DB
+    train_labels_file: RAF-DB/train_labels.csv
+    test_labels_file: RAF-DB/test_labels.csv
+  rafd:
+    enabled: false
+    raw_root: RaFD
+  cremad:
+    enabled: false
+    raw_root: CREMA-D
+  iemocap:
+    enabled: true
+    raw_root: IEMOCAP
+  ravdess:
+    enabled: false
+    raw_root: RAVDESS
+  voxceleb:
+    enabled: false
+    raw_root: Voxceleb-1
+  emobank:
+    enabled: true
+    raw_root: EmoBank
+    csv_file: EmoBank/emobank.csv
+  celeba_dialog:
+    enabled: false
+    raw_root: CelebA-Dialog

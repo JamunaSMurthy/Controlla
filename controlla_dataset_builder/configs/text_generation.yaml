@@ -1,0 +1,28 @@
+project_root: .
+text_output_root: outputs/text
+
+text_generation:
+  mode: emotion_template_hybrid
+  fallback_to_template: true
+  caption_model_name: null
+  use_attributes_if_available: true
+
+templates:
+  neutral:
+    - "A portrait of a person with a neutral expression."
+    - "A calm face looking directly at the camera."
+  happy:
+    - "A portrait of a person with a happy expression."
+    - "A smiling face with bright eyes."
+  sad:
+    - "A sad-looking person with a soft expression."
+  angry:
+    - "A portrait of a person looking angry."
+  fearful:
+    - "A face showing a fearful expression."
+  surprised:
+    - "A surprised face with wide-open eyes."
+  disgusted:
+    - "A person showing a disgusted expression."
+  contemptuous:
+    - "A face showing a contemptuous expression."

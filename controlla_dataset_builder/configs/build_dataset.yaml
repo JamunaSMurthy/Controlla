@@ -1,0 +1,29 @@
+project_root: .
+seed: 0
+output_root: outputs/aligned
+
+split:
+  train_ratio: 0.8
+  val_ratio: 0.1
+  test_ratio: 0.1
+  prevent_identity_leakage: true
+  stratify_by_emotion: true
+
+requirements:
+  require_audio: false
+  require_text: true
+  require_reference_image: false
+
+alignment:
+  minimum_score: 0.55
+  top_k_audio_candidates: 16
+  top_k_text_candidates: 16
+  top_k_reference_candidates: 8
+  max_samples_per_class: null
+
+outputs:
+  include_full_multimodal: true
+  include_image_text: true
+  include_image_audio: true
+  include_text_audio_image_reference: true
+  eval_bench_size_per_class: 64

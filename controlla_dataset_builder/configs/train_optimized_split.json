@@ -1,0 +1,14 @@
+{
+  "assignment": {
+    "strategy": "train_optimized",
+    "val_test_target_reserve_factor": 1.04
+  },
+  "repair": {
+    "enable_generic_soft_conflict_drop": false,
+    "enable_generic_soft_reassign": false,
+    "prefer_train_for_ambiguous_reassign": true
+  },
+  "similarity": {
+    "max_pair_comparisons_per_bucket": 32768
+  }
+}
