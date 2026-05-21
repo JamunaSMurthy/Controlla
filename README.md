@@ -186,7 +186,7 @@ Controlla includes reusable components for evaluating:
 
 An arXiv link will be added here when available:
 
-🔗 **Paper:** [https://arxiv.org/abs/XXXX.XXXXX](https://arxiv.org/abs/XXXX.XXXXX)
+🔗 **Paper:** [Controlla: Learning Controllability via Graph-Constrained Latent Geometry](https://arxiv.org/pdf/2605.16603)
 
 ---
 
