@@ -1,0 +1,17 @@
+base_config: configs/rafdb_identity_emotion.yaml
+
+experiment_name: controlla_ablation_no_graph
+output_dir: outputs/ablations/no_graph
+
+train:
+  save_every: 0
+
+ablations:
+  full_multimodal: false
+  no_graph: true
+  no_identity_branch: false
+  no_audio: false
+  no_ot: false
+  text_only: false
+  image_text: false
+  text_audio: false

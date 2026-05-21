@@ -8,16 +8,17 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
-from data.dataset import ControllaDataset
-from experiments.metrics.metric_utils import load_prediction_manifest
-from utils.config import load_config
-from utils.manifests import resolve_data_manifest_path
+from controlla.data.dataset import ControllaDataset
+from controlla.experiments.metrics.metric_utils import load_prediction_manifest
+from controlla.utils.config import load_config
+from controlla.utils.manifests import resolve_data_manifest_path
 
 
 def test_resolve_data_manifest_path_defaults_to_train_split(tmp_path: Path) -> None:
     split_dir = tmp_path / "splits"
     split_dir.mkdir(parents=True, exist_ok=True)
-    (split_dir / "train.jsonl").write_text("\n", encoding="utf-8")
+    (split_dir / "train.jsonl").write_text("", encoding="utf-8")
+
     config = {
         "project_root": str(tmp_path),
         "data": {
@@ -59,14 +60,24 @@ def test_controlla_dataset_loads_jsonl_split_manifest(tmp_path: Path) -> None:
         },
         "alignment_scores": {"final_score": 0.9},
     }
+
     split_dir.mkdir(parents=True, exist_ok=True)
     (split_dir / "train.jsonl").write_text(json.dumps(record) + "\n", encoding="utf-8")
 
     config = load_config(Path("configs/train.yaml"))
+    config["model"]["diffusion_backbone"] = "mock"
+    config["model"]["text_encoder_backend"] = "simple"
+    config["model"]["image_encoder_backend"] = "cnn"
+
     config["data"]["manifest_path"] = None
     config["data"]["csv_path"] = None
     config["data"]["split_dir"] = str(split_dir)
     config["data"]["split_name"] = "train"
+    config["data"]["image_column"] = "image_path"
+    config["data"]["reference_column"] = "reference_image_path"
+    config["data"]["prompt_column"] = "text"
+    config["data"]["emotion_column"] = "unified_emotion"
+    config["data"]["audio_column"] = "audio_feature_path"
 
     dataset = ControllaDataset(config)
     sample = dataset[0]
@@ -92,5 +103,7 @@ def test_load_prediction_manifest_supports_jsonl(tmp_path: Path) -> None:
     )
 
     frame = load_prediction_manifest(str(manifest_path))
+
     assert frame["sample_id"].tolist() == ["a", "b"]
     assert frame["unified_emotion"].tolist() == ["happy", "sad"]
+    assert "target_emotion" in frame.columns

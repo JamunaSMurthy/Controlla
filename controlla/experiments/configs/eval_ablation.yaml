@@ -1,19 +1,123 @@
-manifest_path: null
-split_dir: ../controlla_dataset_builder/outputs/strict_splits
+# Ablation evaluation config.
+#
+# This config is aligned with the paper's ablation questions:
+# - Does graph structure matter?
+# - Does FGW/GW matter?
+# - Does identity/attribute factor separation matter?
+# - Do modality branches matter?
+# - Does graph traversal matter?
+
+manifest_path: experiments/outputs/manifests/affecthuman43k_manifest.csv
+split_dir: experiments/outputs/splits/affecthuman43k
 split_name: test
-variants:
-  - name: full_controlla
-    config: configs/ablation_full.yaml
-  - name: without_identity_gw
-    disable_identity_gw: true
-  - name: without_emotion_fgw
-    disable_emotion_fgw: true
-  - name: without_disentanglement_loss
-    disable_disentanglement_loss: true
-  - name: fixed_emotion_prototypes
-    fixed_emotion_prototypes: true
-  - name: alternative_diffusion_distance
-    distance_mode: diffusion_distance
+
 seeds: [0, 1, 2]
+
+prediction_root: experiments/outputs/predictions/ablations
 cache_root: experiments/outputs/cache
 results_root: experiments/outputs/results/ablations
+
+component_variants:
+  - name: controlla
+    display_name: Controlla
+    config: configs/ablation_full.yaml
+
+  - name: contrastive_only
+    display_name: Contrastive only
+    disable_ot: true
+    disable_graph_loss: true
+    disable_identity_gw: true
+    disable_emotion_fgw: true
+
+  - name: metric_no_ot
+    display_name: Metric/no OT
+    disable_ot: true
+
+  - name: without_emotion_fgw
+    display_name: w/o emotion FGW
+    disable_emotion_fgw: true
+
+  - name: without_identity_gw
+    display_name: w/o identity GW
+    disable_identity_gw: true
+
+  - name: without_disentanglement_loss
+    display_name: w/o disentanglement
+    disable_disentanglement_loss: true
+    loss_overrides:
+      orthogonality: 0.0
+
+  - name: without_graph_euclidean
+    display_name: Euclidean/no graph
+    disable_graph_prior: true
+    distance_mode: euclidean
+
+modality_variants:
+  - name: image_only
+    display_name: Image only
+    ablations:
+      no_audio: true
+      no_identity_branch: false
+      text_only: false
+      image_text: false
+      text_audio: false
+
+  - name: image_audio
+    display_name: Image + Audio
+    ablations:
+      no_audio: false
+      no_identity_branch: false
+      text_only: false
+      image_text: false
+      text_audio: true
+
+  - name: image_text
+    display_name: Image + Text
+    ablations:
+      no_audio: true
+      no_identity_branch: false
+      text_only: false
+      image_text: true
+      text_audio: false
+
+  - name: image_text_audio
+    display_name: Image + Text + Audio
+    ablations:
+      no_audio: false
+      no_identity_branch: false
+      text_only: false
+      image_text: false
+      text_audio: false
+
+traversal_variants:
+  - name: linear_euclidean
+    display_name: Linear Euclidean
+    traversal_mode: linear
+
+  - name: spline_interpolation
+    display_name: Spline interpolation
+    traversal_mode: spline
+
+  - name: random_path
+    display_name: Random path
+    traversal_mode: random
+
+  - name: fully_connected_path
+    display_name: Fully connected path
+    traversal_mode: fully_connected
+
+  - name: controlla_geodesic
+    display_name: Controlla geodesic
+    traversal_mode: graph
+
+metrics:
+  endpoint_accuracy: true
+  trajectory_smoothness: true
+  identity_similarity: true
+  binding_score: true
+  latent_disentanglement: true
+  geodesic_consistency: true
+
+missing_predictions:
+  behavior: warn
+  write_missing_report: true

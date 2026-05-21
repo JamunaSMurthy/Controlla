@@ -5,30 +5,105 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "controlla"
 version = "0.1.0"
-description = "Research prototype for controllable multimodal image generation and editing"
+description = "Graph-constrained latent geometry for controllable multimodal image generation and editing"
 readme = "README.md"
 requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "Jamuna S Murthy" }
+]
+keywords = [
+  "multimodal-ai",
+  "diffusion-models",
+  "controllable-generation",
+  "optimal-transport",
+  "graph-learning",
+  "identity-preservation",
+  "affective-control"
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
 dependencies = [
   "torch>=2.2.0",
   "torchvision>=0.17.0",
   "diffusers>=0.30.0",
   "transformers>=4.41.0",
   "accelerate>=0.30.0",
+  "safetensors>=0.4.3",
   "Pillow>=10.0.0",
   "PyYAML>=6.0.1",
   "numpy>=1.26.0",
   "pandas>=2.2.0",
   "scikit-learn>=1.5.0",
   "matplotlib>=3.8.0",
+  "tqdm>=4.66.0",
 ]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+  "ruff>=0.5.0",
+  "mypy>=1.10.0",
+]
+
+eval = [
+  "opencv-python>=4.9.0.80",
+]
+
+notebooks = [
+  "jupyter>=1.0.0",
+  "ipykernel>=6.29.0",
+]
+
+[project.urls]
+Homepage = "https://jamunasmurthy.github.io/controlla-affecthuman/"
+Repository = "https://github.com/JamunaSMurthy/Controlla"
+Demo = "https://jamunasmurthy.github.io/Controlla-Demo/"
+Dataset = "https://huggingface.co/datasets/iamjamuna/AffectHuman-43K"
+
+[project.scripts]
+controlla-train = "controlla.pipelines.train_controlla:main"
+controlla-infer = "controlla.pipelines.infer_controlla:main"
+controlla-paper-eval = "controlla.experiments.runners.run_paper_experiments:main"
+controlla-ablation-eval = "controlla.experiments.runners.run_ablations:main"
+controlla-sensitivity-eval = "controlla.experiments.runners.run_sensitivity:main"
 
 [tool.setuptools]
 include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["data", "data.*", "models", "models.*", "losses", "losses.*", "trainers", "trainers.*", "pipelines", "pipelines.*", "utils", "utils.*", "experiments", "experiments.*", "evaluation", "evaluation.*"]
+include = ["controlla", "controlla.*"]
+
+[tool.setuptools.package-data]
+controlla = [
+  "configs/*.yaml",
+  "experiments/configs/*.yaml",
+  "data/*.csv",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+warn_unused_ignores = false
+strict = false

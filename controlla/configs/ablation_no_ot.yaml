@@ -1,13 +1,16 @@
 base_config: configs/rafdb_identity_emotion.yaml
+
 experiment_name: controlla_ablation_no_ot
 output_dir: outputs/ablations/no_ot
+
 train:
   save_every: 0
+
 ablations:
-  full_multimodal: true
+  full_multimodal: false
   no_graph: false
   no_identity_branch: false
-  no_audio: true
+  no_audio: false
   no_ot: true
   text_only: false
   image_text: false

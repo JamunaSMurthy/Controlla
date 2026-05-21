@@ -12,23 +12,47 @@ model:
   emotion_dim: 256
   fused_dim: 256
   z_dim: 128
+
   max_text_tokens: 32
   num_emotions: 8
+
+  text_encoder_backend: simple
+  image_encoder_backend: cnn
+
+  clip_text_model: openai/clip-vit-base-patch32
+  clip_vision_model: openai/clip-vit-base-patch32
+  clip_local_only: true
+  freeze_text_encoder: true
+  freeze_image_encoder: true
+
   graph_heads: 4
   graph_layers: 2
   graph_dropout: 0.1
+
   adapter_tokens: 4
+  include_text_summary_token: true
   cross_attention_dim: 768
-  diffusion_backbone: diffusers
+
+  diffusion_backbone: mock
   diffusion_model_id: runwayml/stable-diffusion-v1-5
   diffusion_model_path: null
   diffusion_local_only: true
+  freeze_unet: true
+  num_factor_tokens: 4
+  train_condition_token_projection: true
+
   ot_solver: fgw
   ot_regularization: 0.05
   ot_iterations: 20
   ot_sinkhorn_iterations: 50
+
   image_size: 64
   use_precomputed_audio_only: true
+
+  identity_loss_type: cosine
+  emotion_loss_type: cosine
+  contrastive_temperature: 0.07
+  lipschitz_constant: 1.0
 
 ablations:
   no_graph: false
@@ -46,6 +70,8 @@ loss_weights:
   emotion: 0.5
   graph: 0.25
   contrastive: 0.1
+  orthogonality: 0.1
+  lipschitz: 0.05
 
 data:
   manifest_path: null
@@ -53,11 +79,13 @@ data:
   split_dir: ../controlla_dataset_builder/outputs/train_optimized_splits
   split_name: train
   image_root: null
+
+  image_column: image_path
   reference_column: reference_image_path
   prompt_column: text
-  image_column: image_path
   emotion_column: unified_emotion
   audio_column: audio_feature_path
+
   emotion_taxonomy:
     - neutral
     - happy
@@ -67,6 +95,7 @@ data:
     - surprised
     - disgusted
     - contemptuous
+
   image_size: 64
   dummy_num_samples: 16
 

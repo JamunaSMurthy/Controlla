@@ -1,13 +1,38 @@
 base_config: configs/base.yaml
+
 experiment_name: controlla_real_sd_local
 output_dir: outputs/real_sd
+
+device: cuda
+mixed_precision: true
+
 model:
   diffusion_backbone: diffusers
+
   diffusion_local_only: true
-  diffusion_model_path: null
+  diffusion_model_path: /path/to/local/stable-diffusion-v1-5
+  diffusion_model_id: runwayml/stable-diffusion-v1-5
+
+  freeze_unet: true
+  freeze_text_encoder: true
+  freeze_image_encoder: true
+
+  text_encoder_backend: hf_clip
+  image_encoder_backend: clip
+
+  clip_local_only: true
+  clip_text_model: openai/clip-vit-base-patch32
+  clip_vision_model: openai/clip-vit-base-patch32
+
+  image_size: 512
+  max_text_tokens: 77
+
 train:
   batch_size: 1
   num_epochs: 1
+  learning_rate: 0.0001
+  save_every: 1
+
 infer:
-  num_inference_steps: 10
+  num_inference_steps: 20
   output_path: outputs/real_sd/infer.png

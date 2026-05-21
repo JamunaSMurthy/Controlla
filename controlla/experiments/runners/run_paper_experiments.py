@@ -105,8 +105,8 @@ def _resolve_dataset_root(config: dict[str, Any], project_root: Path, override: 
         root = resolve_project_path(project_root, candidate)
         if root is not None and (root / "metadata" / "dataset_manifest.csv").exists():
             return root
-    raise FileNotFoundError("Could not resolve an AffectHuman dataset root from eval_paper.yaml")
-
+    fallback = project_root
+    return fallback
 
 def _resolve_manifest(config: dict[str, Any], project_root: Path, dataset_root: Path, override: str | None) -> Path:
     if override:

@@ -1,7 +1,15 @@
+# Dataset registry for Controlla experiments.
+#
+# This file defines raw dataset locations and processed manifest outputs.
+# Paths are intentionally relative so other users can clone the repo and update
+# only raw_root / processed_root.
+
 raw_root: ../Datasets
 processed_root: experiments/outputs/datasets
 manifest_output: experiments/outputs/manifests/unified_manifest.csv
+
 seed: 0
+
 taxonomy:
   emotions:
     - neutral
@@ -12,20 +20,71 @@ taxonomy:
     - surprised
     - disgusted
     - contemptuous
+
+columns:
+  image: image_path
+  reference_image: reference_image_path
+  prompt: prompt
+  emotion: emotion_label
+  audio: audio_path
+  identity: identity_id
+  split: split
+
+splits:
+  strategy: grouped_reference_identity
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  enforce_identity_disjoint: true
+  leakage_check: true
+
 datasets:
+  affecthuman43k:
+    enabled: true
+    role: primary
+    description: Reference-grounded multimodal affective-control benchmark.
+    manifest: experiments/outputs/manifests/affecthuman43k_manifest.csv
+    split_dir: experiments/outputs/splits/affecthuman43k
+    image_root: ../AffectHuman-43K/images
+    reference_root: ../AffectHuman-43K/references
+    audio_root: ../AffectHuman-43K/audio_features
+
   affectnet:
+    enabled: true
+    role: cross_dataset
+    description: External affective generalization benchmark.
     raw_csv: AffectNet/labels.csv
     image_root: AffectNet
-  rafd:
+    processed_manifest: experiments/outputs/datasets/affectnet.csv
+
+  celebahq:
+    enabled: true
+    role: cross_dataset
+    description: External identity-preservation generalization benchmark.
+    raw_root: CELEB_HQ
+    processed_manifest: experiments/outputs/datasets/celebahq.csv
+
+  rafdb:
+    enabled: true
+    role: prototype
+    description: Small smoke-test / prototype identity-emotion dataset.
     raw_root: RAF-DB
     train_csv: RAF-DB/train_labels.csv
     test_csv: RAF-DB/test_labels.csv
     image_root: RAF-DB/DATASET
-  celebahq:
-    raw_root: CELEB_HQ
+    processed_manifest: data/rafdb_identity_emotion_subset.csv
+
   cremad:
+    enabled: false
+    role: audio_source
     raw_root: CREMA-D
+
   iemocap:
+    enabled: false
+    role: audio_source
     raw_root: IEMOCAP
+
   emobank:
+    enabled: false
+    role: text_affect_source
     raw_csv: EmoBank/emobank.csv

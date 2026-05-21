@@ -1,46 +1,51 @@
-# Runnable paper-level experiment definitions for the Controlla result tables.
+# Paper-level evaluation config for Controlla.
 #
-# Prediction manifests are looked up under:
-#   ${prediction_root}/{section}/{method_or_variant}/{split}/seed_{seed}/predictions.csv
-# and then:
-#   ${prediction_root}/{method_or_variant}/{split}/seed_{seed}/predictions.csv
+# Prediction manifests are searched under:
+#   ${prediction_root}/{section}/{method}/{split}/seed_{seed}/predictions.csv
+# and:
+#   ${prediction_root}/{method}/{split}/seed_{seed}/predictions.csv
 #
-# For Controlla rows, the runner can fall back to the dataset manifest so the
-# code is immediately runnable. External baselines are reported as missing until
-# their prediction manifests are registered.
+# External baselines are marked missing until their prediction manifests are
+# generated or registered.
 
 dataset_root: null
 dataset_root_candidates:
   - ../AffectHuman-43K-Grouped
   - ../AffectHuman-43K
-manifest_path: null
+
+manifest_path: experiments/outputs/manifests/affecthuman43k_manifest.csv
+split_dir: experiments/outputs/splits/affecthuman43k
+
 splits: [val, test]
 seeds: [0, 1, 2]
 max_samples_per_split: null
 
 prediction_root: experiments/outputs/predictions
 output_root: experiments/outputs/paper
+cache_root: experiments/outputs/cache
 
-controlla_fallback_methods:
-  - controlla
-  - controlla_full
-  - full_model
-  - image_only
-  - image_audio
-  - image_text
-  - image_text_audio
-  - without_emotion_fgw
-  - without_identity_gw
-  - without_disentanglement_loss
-  - without_graph_euclidean
-  - contrastive_only
-  - metric_no_ot
-  - linear_euclidean
-  - spline_interpolation
-  - controlla_geodesic
-  - k_5
-  - k_10
-  - k_20
+columns:
+  image: image_path
+  reference_image: reference_image_path
+  generated_image: generated_image_path
+  prompt: prompt
+  target_emotion: emotion_label
+  predicted_emotion: predicted_emotion
+  audio: audio_path
+  identity: identity_id
+  method: method
+  seed: seed
+
+paper_tables:
+  main_results: true
+  cross_dataset_generalization: true
+  architecture_comparison: true
+  geometry_evaluation: true
+  retrieval_evaluation: true
+  component_ablations: true
+  modality_ablations: true
+  traversal_comparison: true
+  graph_sensitivity: true
 
 main_methods:
   - styleclip
@@ -53,7 +58,7 @@ main_methods:
 cross_dataset_methods:
   - controlnetpp
   - icedit
-  - flux
+  - flux_kontext
   - dreambooth_controlnetpp
   - controlla
 
@@ -65,12 +70,12 @@ architecture_methods:
 geometry_methods:
   - dreambooth
   - icedit
-  - flux
+  - flux_kontext
   - controlla
 
 retrieval_methods:
-  - clip
-  - imagebind
+  - clip_retrieval
+  - imagebind_retrieval
   - controlla
 
 component_ablations:
@@ -91,6 +96,8 @@ modality_ablations:
 traversal_methods:
   - linear_euclidean
   - spline_interpolation
+  - random_path
+  - fully_connected_path
   - controlla_geodesic
 
 graph_sensitivity:
@@ -100,4 +107,32 @@ graph_sensitivity:
 
 cross_dataset_manifests:
   affectnet: experiments/outputs/datasets/affectnet.csv
-  celebhq_a: experiments/outputs/datasets/celebahq.csv
+  celebahq: experiments/outputs/datasets/celebahq.csv
+
+metrics:
+  endpoint_accuracy: true
+  trajectory_smoothness: true
+  identity_similarity: true
+  identity_auc: true
+  binding_score: true
+  latent_disentanglement: true
+  geodesic_consistency: true
+  retrieval_r_at_k: true
+  human_preference: false
+
+retrieval:
+  ks: [1, 5]
+  modes:
+    - image_to_text
+    - image_to_audio
+
+encoders:
+  clip_model: openai/clip-vit-base-patch32
+  clip_local_only: true
+  imagebind_local_only: true
+  arcface_local_only: true
+  device: cuda
+
+missing_predictions:
+  behavior: warn
+  write_missing_report: true

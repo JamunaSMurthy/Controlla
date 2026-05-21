@@ -1,0 +1,17 @@
+base_config: configs/rafdb_identity_emotion.yaml
+
+experiment_name: controlla_ablation_text_audio
+output_dir: outputs/ablations/text_audio
+
+train:
+  save_every: 0
+
+ablations:
+  full_multimodal: false
+  no_graph: false
+  no_identity_branch: false
+  no_audio: false
+  no_ot: false
+  text_only: false
+  image_text: false
+  text_audio: true

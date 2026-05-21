@@ -1,22 +1,152 @@
+# Paper-aligned Controlla training config.
+#
+# This config is intended for real training/reproduction, not only smoke tests.
+# For quick local testing, use the root configs/base.yaml or configs/train.yaml
+# with diffusion_backbone: mock.
+
 base_config: configs/base.yaml
+
 experiment_name: controlla_paper_train
 output_root: experiments/outputs/runs
-manifest_path: null
-split_dir: ../controlla_dataset_builder/outputs/train_optimized_splits
-split_name: train
+log_root: experiments/outputs/logs
+checkpoint_root: experiments/outputs/checkpoints
+
 seeds: [0, 1, 2]
+
+device: cuda
+mixed_precision: true
+compile_model: false
+
+data:
+  manifest_path: experiments/outputs/manifests/affecthuman43k_manifest.csv
+  split_dir: experiments/outputs/splits/affecthuman43k
+  split_name: train
+  val_split_name: val
+  test_split_name: test
+
+  image_root: ../AffectHuman-43K
+  image_column: image_path
+  reference_column: reference_image_path
+  prompt_column: prompt
+  emotion_column: emotion_label
+  audio_column: audio_path
+  identity_column: identity_id
+
+  image_size: 512
+  num_workers: 4
+  pin_memory: true
+  drop_last: true
+
+  emotion_taxonomy:
+    - neutral
+    - happy
+    - sad
+    - angry
+    - fearful
+    - surprised
+    - disgusted
+    - contemptuous
+
+model:
+  hidden_dim: 256
+  text_dim: 256
+  image_dim: 256
+  audio_dim: 128
+  emotion_dim: 256
+  z_dim: 128
+
+  num_emotions: 8
+  max_text_tokens: 77
+
+  text_encoder_backend: hf_clip
+  image_encoder_backend: clip
+  clip_text_model: openai/clip-vit-base-patch32
+  clip_vision_model: openai/clip-vit-base-patch32
+  clip_local_only: true
+  freeze_text_encoder: true
+  freeze_image_encoder: true
+
+  graph_layers: 2
+  graph_heads: 4
+  graph_dropout: 0.1
+  nonnegative_adjacency: true
+
+  adapter_tokens: 4
+  include_text_summary_token: true
+  cross_attention_dim: 768
+
+  diffusion_backbone: diffusers
+  diffusion_model_id: runwayml/stable-diffusion-v1-5
+  diffusion_model_path: /path/to/local/stable-diffusion-v1-5
+  diffusion_local_only: true
+  freeze_unet: true
+  train_condition_token_projection: true
+
+  ot_solver: fgw
+  ot_regularization: 0.05
+  ot_iterations: 20
+  ot_sinkhorn_iterations: 50
+  ot_feature_alpha: 0.5
+
+  identity_loss_type: cosine
+  emotion_loss_type: cosine
+  contrastive_temperature: 0.07
+  lipschitz_constant: 1.0
+
 optimizer:
   name: adamw
   learning_rate: 0.0002
+  weight_decay: 0.01
+  betas: [0.9, 0.999]
+  eps: 0.00000001
+
+scheduler:
+  name: cosine
+  warmup_steps: 1000
+  min_lr_ratio: 0.1
+
+train:
   batch_size: 32
+  gradient_accumulation_steps: 1
   training_iterations: 200000
-frozen_encoders: true
-backbone:
-  name: latent_diffusion
-  injection_mode: cross_attention
-ot:
-  mode: fgw
-  epsilon: 0.05
-  sinkhorn_iterations: 20
-  lambda_e: 1.0
-  lambda_i: 1.0
+  num_epochs: null
+  max_grad_norm: 1.0
+  log_every: 100
+  eval_every: 5000
+  save_every: 10000
+  save_last: true
+  save_best: true
+  monitor_metric: val_loss_total
+  monitor_mode: min
+
+loss_weights:
+  diffusion: 1.0
+  identity: 0.5
+  emotion: 0.5
+  graph: 1.0
+  contrastive: 0.1
+  orthogonality: 0.1
+  lipschitz: 0.05
+
+ablations:
+  full_multimodal: true
+  no_graph: false
+  no_identity_branch: false
+  no_audio: false
+  no_ot: false
+  text_only: false
+  image_text: false
+  text_audio: false
+
+graph_priors:
+  emotion_graph_path: experiments/outputs/graphs/emotion_graph.pt
+  identity_graph_path: experiments/outputs/graphs/identity_graph.pt
+  cross_modal_graph_path: experiments/outputs/graphs/cross_modal_graph.pt
+  emotion_k: 10
+  identity_k: 10
+
+reproducibility:
+  deterministic: false
+  benchmark: true
+  save_config: true
+  save_git_hash: true

@@ -1,13 +1,58 @@
-manifest_path: null
-split_dir: ../controlla_dataset_builder/outputs/strict_splits
+# Sensitivity evaluation config.
+#
+# Evaluates stability under graph topology and OT hyperparameter changes.
+
+manifest_path: experiments/outputs/manifests/affecthuman43k_manifest.csv
+split_dir: experiments/outputs/splits/affecthuman43k
 split_name: test
+
 seeds: [0, 1, 2]
+
+prediction_root: experiments/outputs/predictions/sensitivity
 cache_root: experiments/outputs/cache
 results_root: experiments/outputs/results/sensitivity
-regularization_values: [0.3, 0.5, 1.0, 1.5, 2.0]
-graph_perturbations: [0.0, 0.05, 0.10, 0.20]
+
+ot_regularization_values:
+  - 0.01
+  - 0.03
+  - 0.05
+  - 0.10
+  - 0.20
+
+graph_perturbations:
+  - 0.00
+  - 0.05
+  - 0.10
+  - 0.20
+
 graph_topologies:
-  - fully_connected
-  - knn_5
-  - knn_10
-  - sparse
+  - name: fully_connected
+    k: null
+    topology: fully_connected
+
+  - name: knn_5
+    k: 5
+    topology: knn
+
+  - name: knn_10
+    k: 10
+    topology: knn
+
+  - name: knn_20
+    k: 20
+    topology: knn
+
+  - name: random_graph
+    k: 10
+    topology: random
+
+metrics:
+  endpoint_accuracy: true
+  trajectory_smoothness: true
+  identity_similarity: true
+  latent_disentanglement: true
+  geodesic_consistency: true
+
+missing_predictions:
+  behavior: warn
+  write_missing_report: true

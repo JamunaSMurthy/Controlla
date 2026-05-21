@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Iterable
-
+import hashlib
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -18,7 +18,8 @@ from torchvision import transforms
 
 
 def _hash_vector(value: str, dim: int) -> np.ndarray:
-    seed = abs(hash(value)) % (2**32)
+    digest = hashlib.sha256(value.encode("utf-8")).hexdigest()
+    seed = int(digest[:16], 16) % (2**32)
     generator = np.random.default_rng(seed)
     vector = generator.standard_normal(dim).astype(np.float32)
     norm = np.linalg.norm(vector) + 1e-8
