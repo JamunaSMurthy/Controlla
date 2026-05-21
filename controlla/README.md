@@ -64,7 +64,7 @@ python -m pipelines.infer_controlla \
 
 ## 📄 Paper
 
-Paper link : [https://arxiv.org/pdf/2605.16603]([https://arxiv.org/pdf/2605.16603)
+**Paper:** [Controlla: Learning Controllability via Graph-Constrained Latent Geometry](https://arxiv.org/pdf/2605.16603)
 
 ## 🧭 Notes
 
