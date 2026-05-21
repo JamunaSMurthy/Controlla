@@ -64,7 +64,7 @@ python -m pipelines.infer_controlla \
 
 ## 📄 Paper
 
-Paper link placeholder: [https://arxiv.org/abs/XXXX.XXXXX](https://arxiv.org/abs/XXXX.XXXXX)
+Paper link : [https://arxiv.org/pdf/2605.16603]([https://arxiv.org/pdf/2605.16603)
 
 ## 🧭 Notes
 
