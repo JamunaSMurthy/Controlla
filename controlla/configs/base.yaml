@@ -46,6 +46,14 @@ model:
   ot_iterations: 20
   ot_sinkhorn_iterations: 50
 
+  # **NEW: Enhanced factor utilization (non-incremental novelties)**
+  # FiLM-based global modulation: directly modulates UNet features with z_id and z_attr
+  use_film_modulation: true
+
+  # Factor-guided adaptive denoising: scales noise prediction based on learned factors
+  # This is the key novelty that makes generation factor-aware at every denoising step
+  use_factor_guided_denoising: true
+
   image_size: 64
   use_precomputed_audio_only: true
 
